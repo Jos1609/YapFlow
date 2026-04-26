@@ -1,0 +1,1 @@
+void main() { final text = 'Jose Qui* te envió un pago por S/ 0.1. El cód. de seguridad es: 887'; final codeRegex = RegExp(r'c.d\.\s*de\s*seguridad\s*es:\s*(\d+)', caseSensitive: false); final match = codeRegex.firstMatch(text); print('Match: '); }
