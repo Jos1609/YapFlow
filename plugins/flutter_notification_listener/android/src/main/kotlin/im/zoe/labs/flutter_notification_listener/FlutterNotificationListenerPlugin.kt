@@ -50,9 +50,9 @@ class FlutterNotificationListenerPlugin : FlutterPlugin, MethodChannel.MethodCal
     Log.i(TAG, "Attaching FlutterJNI to native")
     flutterJNI.attachToNative() 
 
-    // store the flutter engine
-    val engine = flutterPluginBinding.flutterEngine
-    FlutterEngineCache.getInstance().put(FLUTTER_ENGINE_CACHE_KEY, engine)
+    // Removed: Do NOT store the UI flutter engine in the cache. 
+    // This forces the background service to create its own dedicated FlutterEngine 
+    // that survives when the UI is killed.
 
     // TODO: remove those code
     val receiver = NotificationReceiver()

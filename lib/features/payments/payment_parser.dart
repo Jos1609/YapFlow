@@ -76,7 +76,7 @@ class PaymentParser {
     final securityCode = codeRegex.firstMatch(content)?.group(1);
 
     return Payment(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: (sender + content + amount.toString()).hashCode.toString(),
       senderName: sender,
       amount: amount,
       timestamp: DateTime.now(),

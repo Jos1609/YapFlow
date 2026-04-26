@@ -7,6 +7,10 @@ import '../../features/payments/payment_parser.dart';
 @pragma('vm:entry-point')
 void onYapFlowEvent(NotificationEvent event) async {
   try {
+    // Es ABSOLUTAMENTE VITAL inicializar los plugins en este Isolate (el nuevo motor de Kotlin)
+    DartPluginRegistrant.ensureInitialized();
+    WidgetsFlutterBinding.ensureInitialized();
+    
     // 1. Notificar a la UI si está activa
     final SendPort? send = IsolateNameServer.lookupPortByName("yapflow_listener");
     if (send != null) {

@@ -406,6 +406,15 @@ class NotificationsHandlerService: MethodChannel.MethodCallHandler, Notification
         Log.i(TAG, "flutter engine cache is null, create a new one")
         eng = FlutterEngine(context)
 
+        // Register plugins (crucial for SharedPreferences to work in background)
+        try {
+            Class.forName("io.flutter.plugins.GeneratedPluginRegistrant")
+                .getMethod("registerWith", FlutterEngine::class.java)
+                .invoke(null, eng)
+        } catch (e: Exception) {
+            Log.e(TAG, "Tried to automatically register plugins with FlutterEngine but could not find and invoke the GeneratedPluginRegistrant.")
+        }
+
         // ensure initialization
         FlutterInjector.instance().flutterLoader().startInitialization(context)
         FlutterInjector.instance().flutterLoader().ensureInitializationComplete(context, arrayOf())
